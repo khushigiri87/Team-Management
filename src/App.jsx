@@ -10,6 +10,14 @@ const App = () => {
     if (loggedInUser) {
       try {
         const parsed = JSON.parse(loggedInUser)
+        if (parsed.role === "employees") {
+          const employees = JSON.parse(localStorage.getItem("employees")) || []
+          const exists = employees.some((e) => e.id === parsed.data?.id || e.email?.toLowerCase() === parsed.data?.email?.toLowerCase())
+          if (!exists) {
+            localStorage.removeItem("loggedInUser")
+            return null
+          }
+        }
         return parsed.role
       } catch {
         return null
@@ -23,6 +31,15 @@ const App = () => {
     if (loggedInUser) {
       try {
         const parsed = JSON.parse(loggedInUser)
+        if (parsed.role === "employees") {
+          const employees = JSON.parse(localStorage.getItem("employees")) || []
+          const current = employees.find((e) => e.id === parsed.data?.id || e.email?.toLowerCase() === parsed.data?.email?.toLowerCase())
+          if (!current) {
+            localStorage.removeItem("loggedInUser")
+            return null
+          }
+          return current
+        }
         return parsed.data
       } catch {
         return null
@@ -58,7 +75,7 @@ const App = () => {
       )
     }
     else {
-      const allEmployees = userData || JSON.parse(localStorage.getItem("employees")) || []
+      const allEmployees = JSON.parse(localStorage.getItem("employees")) || userData || []
       const emp = allEmployees.find(
         (e) => e.email.toLowerCase() === email.trim().toLowerCase() && e.password === password
       )
