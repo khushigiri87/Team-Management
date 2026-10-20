@@ -1,27 +1,47 @@
 import React from "react";
 
-const AcceptTask = ({ data }) => {
+const AcceptTask = ({ data, index, onUpdateTask }) => {
   return (
-    <div 
-      className="min-w-[200px] sm:min-w-[220px] md:min-w-[260px] h-56 sm:h-64 md:h-72 
-      bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl p-3 sm:p-4 md:p-5 text-white">
+    <div className="min-w-[280px] sm:min-w-[320px] max-w-[340px] flex-shrink-0 bg-gradient-to-br from-amber-900/40 via-orange-900/30 to-gray-900/60 backdrop-blur-md rounded-2xl p-5 border border-amber-500/30 shadow-xl flex flex-col justify-between hover:-translate-y-1 transition-all duration-300">
+      <div>
+        <div className="flex items-center justify-between gap-2 mb-3">
+          <span className="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/30 uppercase tracking-wider">
+            {data.category || 'General'}
+          </span>
+          <span className="text-xs text-gray-400 font-medium">
+            📅 {data.date}
+          </span>
+        </div>
 
-      <h3 className="text-base sm:text-lg md:text-xl font-semibold">
-        {data.title}
-      </h3>
+        <div className="flex items-center gap-1.5 mb-1.5">
+          <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          <span className="text-[11px] font-semibold text-amber-400 uppercase tracking-wider">In Progress</span>
+        </div>
 
-      <p className="mt-2 text-[11px] sm:text-xs md:text-sm">
-        {data.description}
-      </p>
+        <h3 className="text-lg font-bold text-white tracking-tight leading-snug">
+          {data.title}
+        </h3>
 
-      <p className="mt-2 sm:mt-3 text-xs sm:text-sm md:text-base">
-        📅 {data.date}
-      </p>
+        <p className="mt-2 text-xs sm:text-sm text-gray-300 line-clamp-3 leading-relaxed">
+          {data.description}
+        </p>
+      </div>
 
-      <span 
-        className="inline-block mt-3 sm:mt-4 bg-black/30 px-2 sm:px-3 py-1 rounded text-[10px] sm:text-xs md:text-sm">
-        Accepted
-      </span>
+      <div className="mt-5 pt-4 border-t border-amber-500/20 grid grid-cols-2 gap-2">
+        <button
+          onClick={() => onUpdateTask && onUpdateTask(index, 'completed')}
+          className="py-2 px-2.5 bg-emerald-600/90 hover:bg-emerald-500 text-white rounded-xl text-xs font-semibold shadow-md shadow-emerald-600/20 active:scale-95 transition cursor-pointer flex items-center justify-center gap-1"
+        >
+          <span>✔</span> Complete
+        </button>
+
+        <button
+          onClick={() => onUpdateTask && onUpdateTask(index, 'failed')}
+          className="py-2 px-2.5 bg-rose-600/90 hover:bg-rose-500 text-white rounded-xl text-xs font-semibold shadow-md shadow-rose-600/20 active:scale-95 transition cursor-pointer flex items-center justify-center gap-1"
+        >
+          <span>✖</span> Failed
+        </button>
+      </div>
     </div>
   );
 };

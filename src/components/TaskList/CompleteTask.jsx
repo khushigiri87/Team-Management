@@ -2,26 +2,31 @@ import React from "react";
 
 const CompleteTask = ({ data }) => {
   return (
-    <div 
-      className="min-w-[200px] sm:min-w-[260px] md:min-w-[300px] h-56 sm:h-64 md:h-72
-      bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl p-3 sm:p-4 md:p-5 text-white">
+    <div className="min-w-[280px] sm:min-w-[320px] max-w-[340px] flex-shrink-0 bg-gradient-to-br from-emerald-900/40 via-teal-900/30 to-gray-900/60 backdrop-blur-md rounded-2xl p-5 border border-emerald-500/30 shadow-xl flex flex-col justify-between hover:-translate-y-1 transition-all duration-300">
+      <div>
+        <div className="flex items-center justify-between gap-2 mb-3">
+          <span className="text-[11px] font-semibold px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 uppercase tracking-wider">
+            {data.category || 'General'}
+          </span>
+          <span className="text-xs text-gray-400 font-medium">
+            📅 {data.date}
+          </span>
+        </div>
 
-      <h3 className="text-base sm:text-lg md:text-xl font-semibold">
-        {data.title}
-      </h3>
+        <h3 className="text-lg font-bold text-white tracking-tight leading-snug">
+          {data.title}
+        </h3>
 
-      <p className="mt-2 text-[11px] sm:text-xs md:text-sm">
-        {data.description}
-      </p>
+        <p className="mt-2.5 text-xs sm:text-sm text-gray-300 line-clamp-3 leading-relaxed">
+          {data.description}
+        </p>
+      </div>
 
-      <p className="mt-2 sm:mt-3 text-xs sm:text-sm md:text-base">
-        📅 {data.date}
-      </p>
-
-      <span 
-        className="inline-block mt-3 sm:mt-4 bg-black/30 px-2 sm:px-3 py-1 rounded text-[10px] sm:text-xs md:text-sm">
-        Completed ✅
-      </span>
+      <div className="mt-5 pt-4 border-t border-emerald-500/20">
+        <div className="w-full py-2 px-3 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-xs font-semibold text-emerald-300 flex items-center justify-center gap-1.5">
+          <span>✅</span> Completed Successfully
+        </div>
+      </div>
     </div>
   );
 };
