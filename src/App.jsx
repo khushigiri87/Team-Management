@@ -57,30 +57,26 @@ const App = () => {
         })
       )
     }
-    else if (
-      userData?.find(
-        (emp) => emp.email === email && emp.password === password
-      )
-    ) {
-
-      const emp = userData.find(
-        (emp) => emp.email === email && emp.password === password
-      )
-
-      setUser("employees")
-      setLoggedInUserData(emp)
-
-      localStorage.setItem(
-        "loggedInUser",
-        JSON.stringify({
-          role: "employees",
-          data: emp
-        })
-      )
-    }
-
     else {
-      alert("Invalid Candidate")
+      const allEmployees = userData || JSON.parse(localStorage.getItem("employees")) || []
+      const emp = allEmployees.find(
+        (e) => e.email.toLowerCase() === email.trim().toLowerCase() && e.password === password
+      )
+
+      if (emp) {
+        setUser("employees")
+        setLoggedInUserData(emp)
+
+        localStorage.setItem(
+          "loggedInUser",
+          JSON.stringify({
+            role: "employees",
+            data: emp
+          })
+        )
+      } else {
+        alert("Invalid Credentials")
+      }
     }
   }
 
